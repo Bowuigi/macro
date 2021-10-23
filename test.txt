@@ -1,0 +1,19 @@
+%sub "@%((.-)%) %-> {(.-)}" "function(self, %1) %2 end"
+%sub "%((.-)%) %-> {(.-)}" "function(%1) %2 end"
+%sub "#{(.-)}" ""..tostring(%1)..""
+
+-- cool functions
+
+o = (param, param2) -> {
+	print(param, param2)
+}
+
+y = () -> {return 1+2}
+
+-- OOP
+a = @(obj, idk) -> {
+	print(self.thing, obj)
+}
+
+-- string interpolation
+print("yay: #{some_thing} and #{1+2}")

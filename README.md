@@ -15,10 +15,7 @@ The commands are not required, you can just run it without those and it will pri
 On the file you want macros, do this:
 
 ```
-%start
-%macro GREETING hello! how are you?
-%macro f function
-%end
+%sub "find pattern" "replace with"
 
 ... your file contents ...
 ```
@@ -30,30 +27,12 @@ It is shebang compatible, for example
 ```lua
 #!/usr/bin/macro lua
 
-%start
-%macro f function
-%end
+%sub "%((.-)%)%s*->%s*{(.-)}" "function(%1) %2 end"
 
--- Anonymous functions made easier to write
-(f() print("hi") end)()
-
--- You don't have to escape every %f, but only the ones that are not next to alphanumeric characters, for example, "for" and "function" should not be escaped, but %f() or %f should
+-- Cooler functions
+sayHi = () -> {
+	print("hi!")
+}
 ```
 
 Will pass the output of the preprocessor to `lua`
-
-As mentioned in the example, macros can be escaped by adding a *%* before them, but here are all the conditions that must be met for the macro to expand
-
-- It must not be escaped
-- The previous character must not be an alphanumeric character
-- The next character must not be an alphanumeric character
-
-For example, if you have a macro named "my_macro" then
-
-**my_macro** would expand
-
-**my_macro2** wouldn't expand
-
-**pmy_macroi** wouldn't expand either
-
-**%my_macro** wouldn't expand
